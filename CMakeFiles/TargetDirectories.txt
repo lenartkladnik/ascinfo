@@ -1,0 +1,3 @@
+/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles/ascinfo.dir
+/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles/edit_cache.dir
+/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles/rebuild_cache.dir

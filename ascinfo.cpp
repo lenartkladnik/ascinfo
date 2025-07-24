@@ -94,7 +94,7 @@ std::vector<std::string> split(std::string string, char delimiter) {
 }
 
 // Run an external command, suppress the output and return the stdout
-std::string exec(const char* cmd) {
+std::string exec(const char* cmd, bool rem_nl = true) {
     std::array<char, 128> buffer;
     std::string result;
     std::unique_ptr<FILE, int(*)(FILE*)> pipe(popen((std::string(cmd) + std::string(" 2>/dev/null")).c_str(), "r"), static_cast<int(*)(FILE*)>(pclose));
@@ -104,7 +104,11 @@ std::string exec(const char* cmd) {
     while (fgets(buffer.data(), static_cast<int>(buffer.size()), pipe.get()) != nullptr) {
         result += buffer.data();
     }
-    return strip(result);
+
+    auto stripped = strip(result);
+
+    if (rem_nl) return replace(stripped, "\n", " ");
+    else return stripped;
 }
 
 // Get name of process by PID
@@ -202,10 +206,10 @@ std::map<std::string, std::string> getData() {
     std::regex ip_re("[0-9]: ([^:]+)[\\s\\S]*?inet ([^\\/]+)");
 
     auto uname = split(exec("/usr/bin/uname -a"), ' ');
-    auto os_release = parseToMap(exec("/usr/bin/cat /etc/os-release"));
+    auto os_release = parseToMap(exec("/usr/bin/cat /etc/os-release", false));
     auto uptime = exec("/usr/bin/uptime -p");
     auto uptime_raw = exec("/usr/bin/uptime");
-    auto lscpu = exec("/usr/bin/lscpu");
+    auto lscpu = exec("/usr/bin/lscpu", false);
     auto gpu = exec("if command -v nvidia-smi &>/dev/null; then nvidia-smi --query-gpu=name --format=csv,noheader,nounits; elif command -v lspci &>/dev/null; then lspci | grep -iE 'vga|3d' | awk -F \": \" '{print $2}'; else echo \"Unavailable\"; fi");
     auto free = exec("/usr/bin/free -h");
     auto ip_a = exec("/usr/bin/ip a");
