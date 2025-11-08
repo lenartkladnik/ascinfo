@@ -8,7 +8,6 @@
 #include <stdexcept>
 #include <array>
 #include <regex>
-#include <format>
 #include <fstream>
 #include <cctype>
 #include <algorithm>
@@ -233,7 +232,7 @@ std::map<std::string, std::string> getData() {
         }
 
         if (sys_age_start_found) {
-            sys_age += std::format("{} {}, ", split_system_age[i], std::stoi(split_system_age[i]) == 1 ? time_lookup[i]: time_lookup[i] + "s");
+            sys_age += split_system_age[i] + " " + (std::stoi(split_system_age[i]) == 1 ? time_lookup[i]: time_lookup[i] + "s") + ", ";
         }
     }
 
@@ -321,7 +320,7 @@ std::map<std::string, std::string> getData() {
         {"cpu_model", cpu_model},
         {"cpu_count", cpu_num},
         {"cpu_ghz", cpu_ghz},
-        {"cpu", std::format("{} ({}) @ {}GHz", cpu_model, cpu_num, cpu_ghz)},
+        {"cpu", cpu_model + " (" + cpu_num + ") @ " + cpu_ghz + "GHz"},
         {"gpu", gpu},
         {"used_mem", mem},
         {"ip", ip},
@@ -349,12 +348,12 @@ int display_line(std::string name, std::string value, std::string icon, int max_
     auto sg = std::to_string(sc[1]);
     auto sb = std::to_string(sc[2]);
 
-    std::cout << std::format("{}\x1b[1m\x1b[38;2;{};{};{}m{}", prefix, br, bg, bb, icon)  // Icon with background color
+    std::cout << prefix + "\x1b[1m\x1b[38;2;" + br + ";" + bg + ";" + bb + "m" + icon // Icon with background color
               << " " 
               << name 
               << "\x1b[0m"  // Reset formatting after name
               << std::string(max_name_width - name.size(), ' ')  // Padding the name to max width
-              << std::format(" \x1b[38;5;242m>\x1b[0m  \x1b[38;2;{};{};{}m{}", sr, sg, sb, value) // Value with text color
+              << " \x1b[38;5;242m>\x1b[0m  \x1b[38;2;" + sr + ";" + sg + ";" + sb + "m" + value // Value with text color
               << "\x1b[0m"  // Reset formatting after value
               << std::endl;  // End the line
 
@@ -376,17 +375,17 @@ int display_top(std::string hostname, std::string username, std::vector<int> bc,
     auto sdark = getDarkenedColors(sc);
 
     std::cout << prefix
-              << std::format("\x1b[48;2;{};{};{}m   ", bdark[3][0], bdark[3][1], bdark[3][2])
-              << std::format("\x1b[48;2;{};{};{}m  ", bdark[2][0], bdark[2][1], bdark[2][2])
-              << std::format("\x1b[48;2;{};{};{}m \u2009", bdark[1][0], bdark[1][1], bdark[1][2])
-              << std::format("\x1b[48;2;{};{};{}m ", bdark[0][0], bdark[0][1], bdark[0][2])
+              << "\x1b[48;2;" << bdark[3][0] << ";" << bdark[3][1] << ";" << bdark[3][2] << "m   "
+              << "\x1b[48;2;" << bdark[2][0] << ";" << bdark[2][1] << ";" << bdark[2][2] << "m   "
+              << "\x1b[48;2;" << bdark[1][0] << ";" << bdark[1][1] << ";" << bdark[1][2] << "m \u2009"
+              << "\x1b[48;2;" << bdark[0][0] << ";" << bdark[0][1] << ";" << bdark[0][2] << "m "
               << "\x1b[0m "
-              << std::format("\x1b[38;2;{};{};{}m{}", br, bg, bb, capitalize(username))
-              << "\x1b[38;5;242m @ " << std::format("\x1b[38;2;{};{};{}m{} ", sr, sg, sb, capitalize(hostname))
-              << std::format("\x1b[48;2;{};{};{}m ", sdark[0][0], sdark[0][1], sdark[0][2])
-              << std::format("\x1b[48;2;{};{};{}m \u2009", sdark[1][0], sdark[1][1], sdark[1][2])
-              << std::format("\x1b[48;2;{};{};{}m  ", sdark[2][0], sdark[2][1], sdark[2][2])
-              << std::format("\x1b[48;2;{};{};{}m   ", sdark[3][0], sdark[3][1], sdark[3][2])
+              << "\x1b[38;2;" << br << ";" << bg << ";" << bb << "m" << capitalize(username)
+              << "\x1b[38;5;242m @ " << "\x1b[38;2;" << sr << ";" << sg << ";" << sb << "m" << capitalize(hostname)
+              << "\x1b[48;2;" << sdark[0][0] << ";" << sdark[0][1] << ";" << sdark[0][2] << "m "
+              << "\x1b[48;2;" << sdark[1][0] << ";" << sdark[1][1] << ";" << sdark[1][2] << "m \u2009"
+              << "\x1b[48;2;" << sdark[2][0] << ";" << sdark[2][1] << ";" << sdark[2][2] << "m  "
+              << "\x1b[48;2;" << sdark[3][0] << ";" << sdark[3][1] << ";" << sdark[3][2] << "m   "
               << "\x1b[0m"
               << std::endl;
 
@@ -418,7 +417,7 @@ std::string getFlagOption(int argc, char *argv[], std::string flag_short, std::s
                 usage(argv[0]);
                 std::cerr << "Invalid argument: '" << argv[i] << "' requires a value." << std::endl;
 
-                throw std::invalid_argument(std::format("No value for flag argument '{}'.", argv[i]).c_str());
+                throw std::invalid_argument(("No value for flag argument '" + std::string(argv[i]) + "'.").c_str());
             }
         }
     }
@@ -461,7 +460,7 @@ std::string getPositionalOption(int argc, char *argv[], int relative_position, s
     usage(argv[0]);
     std::cerr << "Invalid argument: Missing argument '" << name << "'." << std::endl;
 
-    throw std::invalid_argument(std::format("Missing positional argument '{}'.", name).c_str());
+    throw std::invalid_argument(("Missing positional argument '" + std::string(name) + "'.").c_str());
 }
 
 void help(std::string prog, std::vector<std::pair<std::string, std::string>> options) {
@@ -519,7 +518,7 @@ std::string char32_t_unicode_codepoint_to_utf_8(char32_t codepoint) {
 }
 
 void cfgError(int lnum, std::string line, std::string message) {
-    std::cerr << std::format("Config formatting error at line {}: '{}'", lnum, line) << std::endl;
+    std::cerr << "Config formatting error at line " << lnum << ": '" << line << "'" << std::endl;
     std::cerr << " -> " << message << std::endl;
 }
 
@@ -634,8 +633,8 @@ int main(int argc, char *argv[]) {
         std::ofstream file(gen_config, std::ios::app);
 
         file << "sideimage:ascinfo.sideimage" << "\n";
-        file << std::format("base_color:{},{},{}", bc[0], bc[1], bc[2]) << "\n";
-        file << std::format("secondary_color:{},{},{}", sc[0], sc[1], sc[2]) << "\n";
+        file << "base_color:" << bc[0] << "," << bc[1] << "," << bc[2] << "\n";
+        file << "secondary_color:" << sc[0] << "," << sc[1] << "," << sc[2] << "\n";
         file << "\n";
 
         for (int i = 0; i < default_cfg.size(); i++) {
@@ -732,14 +731,14 @@ int main(int argc, char *argv[]) {
 
                 else {
                     if (sec_name.empty()) {
-                        cfgError(lnum, line, std::format("Expected section header ('[HEADER]'), got '{}'.", line));
+                        cfgError(lnum, line, "Expected section header ('[HEADER]'), got '" + line + "'.");
                         return 1;
                     }
 
                     auto ln_s = split(replace(ln, ", ", ","), ',');
 
                     if (ln_s.size() != 3) {
-                        cfgError(lnum, line, std::format("Line expects 3 arguments ('arg1,arg2,arg3'), got '{}'.", ln_s.size()));
+                        cfgError(lnum, line, std::string("Line expects 3 arguments ('arg1,arg2,arg3'), got '") + std::to_string(ln_s.size()) + std::string("'."));
                         return 1;
                     }
 
@@ -758,7 +757,7 @@ int main(int argc, char *argv[]) {
             height = exec(("/usr/bin/cat " + imgFP + " | wc -l").c_str());
             width = exec(("/usr/bin/cat " + imgFP + " | head -n1 | sed 's/\x1b\[[0-9;]*m//g' | wc -m").c_str());
             system(("/usr/bin/cat " + imgFP).c_str());
-            std::cout << std::format("\x1b[{}A", height);
+            std::cout << "\x1b[" + height + "A";
 
         }
         else if (commandExists("neofetch")) {
@@ -772,7 +771,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
-    std::string prefix = off ? "": std::format("\x1b[{}C     ", width);
+    std::string prefix = off ? "": "\x1b[" + width + "C     ";
 
     int w = 0;
 
@@ -789,7 +788,7 @@ int main(int argc, char *argv[]) {
     display_top(data["hostname"], data["username"], bc, sc, prefix);
 
     for (int i = 0; i < lines.size(); i++){
-        std::cout << "\n" << prefix << std::format("\x1b[38;5;255m\x1b[1m{}\x1b[0m", lines[i].first) << std::endl;
+        std::cout << "\n" << prefix << "\x1b[38;5;255m\x1b[1m" + lines[i].first + "\x1b[0m" << std::endl;
         lc += 2;
 
         for (int j = 0; j < lines[i].second.size(); j++) {
