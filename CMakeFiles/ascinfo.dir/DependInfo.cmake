@@ -8,7 +8,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/lenart/Desktop/Storage/C & C++/ascinfo/ascinfo.cpp" "CMakeFiles/ascinfo.dir/ascinfo.cpp.o" "gcc" "CMakeFiles/ascinfo.dir/ascinfo.cpp.o.d"
+  "/home/lenart/Desktop/Storage/C++/ascinfo/ascinfo.cpp" "CMakeFiles/ascinfo.dir/ascinfo.cpp.o" "gcc" "CMakeFiles/ascinfo.dir/ascinfo.cpp.o.d"
   "" "ascinfo" "gcc" "CMakeFiles/ascinfo.dir/link.d"
   )
 

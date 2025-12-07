@@ -54,10 +54,10 @@ RM = /usr/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = "/home/lenart/Desktop/Storage/C & C++/ascinfo"
+CMAKE_SOURCE_DIR = /home/lenart/Desktop/Storage/C++/ascinfo
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/lenart/Desktop/Storage/C & C++/ascinfo"
+CMAKE_BINARY_DIR = /home/lenart/Desktop/Storage/C++/ascinfo
 
 #=============================================================================
 # Directory level rules for the build root directory
@@ -85,14 +85,14 @@ clean: CMakeFiles/ascinfo.dir/clean
 CMakeFiles/ascinfo.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ascinfo.dir/build.make CMakeFiles/ascinfo.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ascinfo.dir/build.make CMakeFiles/ascinfo.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles" --progress-num=1,2 "Built target ascinfo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/lenart/Desktop/Storage/C++/ascinfo/CMakeFiles --progress-num=1,2 "Built target ascinfo"
 .PHONY : CMakeFiles/ascinfo.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/ascinfo.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles" 2
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lenart/Desktop/Storage/C++/ascinfo/CMakeFiles 2
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/ascinfo.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles" 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/lenart/Desktop/Storage/C++/ascinfo/CMakeFiles 0
 .PHONY : CMakeFiles/ascinfo.dir/rule
 
 # Convenience name for target.
@@ -102,7 +102,7 @@ ascinfo: CMakeFiles/ascinfo.dir/rule
 # codegen rule for target.
 CMakeFiles/ascinfo.dir/codegen:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/ascinfo.dir/build.make CMakeFiles/ascinfo.dir/codegen
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir="/home/lenart/Desktop/Storage/C & C++/ascinfo/CMakeFiles" --progress-num=1,2 "Finished codegen for target ascinfo"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/home/lenart/Desktop/Storage/C++/ascinfo/CMakeFiles --progress-num=1,2 "Finished codegen for target ascinfo"
 .PHONY : CMakeFiles/ascinfo.dir/codegen
 
 # clean rule for target.

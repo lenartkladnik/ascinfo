@@ -381,7 +381,7 @@ int display_top(std::string hostname, std::string username, std::vector<int> bc,
               << "\x1b[48;2;" << bdark[0][0] << ";" << bdark[0][1] << ";" << bdark[0][2] << "m "
               << "\x1b[0m "
               << "\x1b[38;2;" << br << ";" << bg << ";" << bb << "m" << capitalize(username)
-              << "\x1b[38;5;242m @ " << "\x1b[38;2;" << sr << ";" << sg << ";" << sb << "m" << capitalize(hostname)
+              << "\x1b[38;5;242m @ " << "\x1b[38;2;" << sr << ";" << sg << ";" << sb << "m" << capitalize(hostname) << " "
               << "\x1b[48;2;" << sdark[0][0] << ";" << sdark[0][1] << ";" << sdark[0][2] << "m "
               << "\x1b[48;2;" << sdark[1][0] << ";" << sdark[1][1] << ";" << sdark[1][2] << "m \u2009"
               << "\x1b[48;2;" << sdark[2][0] << ";" << sdark[2][1] << ";" << sdark[2][2] << "m  "
