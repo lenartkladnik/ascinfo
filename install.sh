@@ -10,7 +10,7 @@ echo "Fetching latest $BIN_NAME release..."
 
 URL=$(curl -s "https://api.github.com/repos/$REPO/releases/latest" |
   grep "browser_download_url" |
-  grep "\"$BIN_NAME\"" |
+  grep "$BIN_NAME" |
   cut -d '"' -f 4)
 
 if [ -z "$URL" ]; then
