@@ -7,8 +7,6 @@ Display system information with fully customizable ascii formatting.
 ```
 curl -fsSL https://raw.githubusercontent.com/lenartkladnik/ascinfo/main/install.sh | sh
 ```
-```
-```
 
 ## Usage
 ```
