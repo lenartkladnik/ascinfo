@@ -1,6 +1,7 @@
 # ascinfo
 
-![Screenshot_20250511_104508](https://github.com/user-attachments/assets/d1617683-b06e-482e-adf4-020772da32fa)
+<img width="1068" height="378" alt="image" src="https://github.com/user-attachments/assets/8dda5906-49c6-4cf9-a146-da28c16b219c" />
+
 Display system information with fully customizable ascii formatting.
 
 ## Install
